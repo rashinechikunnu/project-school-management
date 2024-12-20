@@ -10,6 +10,8 @@ urlpatterns = [
     # edit
     path('edited/<pk>',views.edit,name="re_create"),
     # delete
-    path('delete/<pk>',views.delete,name="delete")
+    path('delete/<pk>',views.delete,name="delete"),
+    # logout
+    path('logout',views_login.log_out,name='logout')
 
 ]
