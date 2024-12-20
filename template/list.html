@@ -1,0 +1,100 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Table</title>
+    <link rel="stylesheet" href="{% static '/css/style.css' %}">
+    <style>
+        /* Centering the table */
+        .table-container {
+            display: flex;
+            flex-direction: column; /* Align content vertically */
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Ensures full page vertical alignment */
+            background-color: #f9f9f9; /* Optional background color */
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%; /* Adjust width as needed */
+            background: #fff; /* White background */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional shadow */
+            margin-bottom: 20px; /* Add space below the table */
+        }
+
+        th, td {
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background: #f4f4f4; /* Header background */
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9; /* Alternate row coloring */
+        }
+
+        /* Add Study Button */
+        .add-study-container {
+            margin-top: 10px; /* Space above the link */
+        }
+
+        .add-study-container a {
+            display: inline-block;
+            text-decoration: none;
+            background-color: #007bff; /* Matching blue color */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-study-container a:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="table-container">
+        <table>
+         <h1>Study Management</h1> 
+            <tr>
+                <th>#</th>
+                <th>Study Name</th>
+                <th>Study Phase</th>
+                <th>Sponsor Name</th>
+                <th>Study Description</th>
+                <th>Edit</th>
+                <th>Delete</th>
+               
+            </tr>
+            {% for eop in orm %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ eop.study_name }}</td>
+                <td>{{ eop.get_study_phase_display }}</td>
+                <td>{{ eop.Sponsor_Name }}</td>
+                <td>{{ eop.study_Description }}</td>
+                <td><a href="{% url 'delete' eop.id %}">Delete</a></td>
+                <td><a href="{% url 're_create' eop.id %}">Edit</a></td>
+
+            </tr>
+            {% endfor %}
+        </table>
+
+        <div class="add-study-container">
+            <a href="{% url 'form' %}">Add Study</a>
+        </div>
+        
+    </div>
+</body>
+</html>
